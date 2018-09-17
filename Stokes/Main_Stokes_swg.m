@@ -71,6 +71,7 @@ h=[1/4 1/8 1/16 1/32];
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 % Mesh options
 %
+
 % option.type  ='triangle';  % triangular elements
 %
  option.type  ='quadrangle'; % rectangular elements
@@ -78,14 +79,14 @@ h=[1/4 1/8 1/16 1/32];
 % option.type  ='hexagon';
 %      Must select one of the suboptions for hexamesh. 
 %        option.hexamesh ='regular';
-        option.hexamesh ='irregular_one';
+         option.hexamesh ='irregular_one';
 %        option.hexamesh ='irregular_two'; 
 %        option.hexamesh ='irregular_three';
 
 %  option.type   ='octagon';
 %       Must select one of the suboptions for octamesh
 %           option.octamesh ='regular';
-           option.octamesh ='irregular_one';
+            option.octamesh ='irregular_one';
 %           option.octamesh ='irregular_two';
 %           option.octamesh ='irregular_three';
 %
@@ -147,7 +148,10 @@ for k = 1:maxIt
      Mid_Edge   = info.Mid_Edge;
      Elem_center= info.Elem_center;
      NE         = info.NE;
-     fileID = fopen('.\Save_Results\Triangle_Stokes.txt','wt');
+     if ~exist('Saved_Results','dir')
+         mkdir Saved_Results;    
+     end
+     fileID = fopen('.\Saved_Results\Triangle_Stokes.txt','wt');
      fprintf(fileID,'%12s %12s %12s %12s  %12s %12s\n','Mid_Edge_x','Mid_Edge_y','Num u     ', 'Num_u - Exact_u','Num v     ', 'Num_v - Exact_v');
      fprintf(fileID,'%12.4f %12.4f %12.4f %12.4f %12.4f %12.4f\n',[Mid_Edge(:,1) Mid_Edge(:,2) u(1:NE) info.erroru u(NE+1:2*NE) info.errorv]' );
      fprintf(fileID,'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n');
@@ -155,7 +159,7 @@ for k = 1:maxIt
      fprintf(fileID,'%12.4f %12.4f %12.4f %12.4f \n',[Elem_center(:,1) Elem_center(:,2) u(2*NE+1:end) info.errorp]' );
      fclose(fileID);
      %
-     fprintf('The numerical results for meshsize h = 1/%d is saved in file Triangle_Stokes.txt in folder Save_Results.\n', 1/h(maxIt))
+     fprintf('The numerical results for meshsize h = 1/%d is saved in file Triangle_Stokes.txt in folder Saved_Results.\n', 1/h(maxIt))
      %
      rateL2 =zeros(maxIt,1);
      rateH1 =zeros(maxIt,1);
@@ -166,18 +170,21 @@ for k = 1:maxIt
      rateL2p(kk)    = (log (ERR_triangle(kk,3))-log (ERR_triangle(kk-1,3)))/ (log (h(kk))-log (h(kk-1))) ; 
      end
      A = [ERR_triangle(:,1) rateL2 ERR_triangle(:,2) rateH1 ERR_triangle(:,3) rateL2p]';
-     fileID = fopen('.\Save_Results\Triangle_Stokes_error.txt','wt');
+     fileID = fopen('.\Saved_Results\Triangle_Stokes_error.txt','wt');
      fprintf(fileID,'%12s %6s %12s %6s %12s %6s \n','errL2   ','rateL2','errH1   ','rateH1','errL2 p ','rateL2 p');
      fprintf(fileID,'%12.2e %6.2f %12.2e %6.2f %12.2e %6.2f\n',A);
      fclose(fileID);
-     fprintf('The error and convergence rate are saved in file Triangle_Stokes_error.txt in folder Save_Results.\n');
+     fprintf('The error and convergence rate are saved in file Triangle_Stokes_error.txt in folder Saved_Results.\n');
      end
      elseif (option.exact==0)
      if (k==maxIt)
      Mid_Edge   = info.Mid_Edge;
      Elem_center= info.Elem_center;
      NE         = info.NE;
-     fileID = fopen('.\Save_Results\Triangle_Stokes.txt','wt');
+     if ~exist('Saved_Results','dir')
+         mkdir Saved_Results;    
+     end
+     fileID = fopen('.\Saved_Results\Triangle_Stokes.txt','wt');
      fprintf(fileID,'%12s %12s %12s %12s \n','Mid_Edge_x','Mid_Edge_y','Num u     ','Num v     ');
      fprintf(fileID,'%12.4f %12.4f %12.4f %12.4f \n',[Mid_Edge(:,1) Mid_Edge(:,2) u(1:NE) u(NE+1:2*NE)]' );
      fprintf(fileID,'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n');
@@ -185,7 +192,7 @@ for k = 1:maxIt
      fprintf(fileID,'%12.4f %12.4f %12.4f \n',[Elem_center(:,1) Elem_center(:,2) u(2*NE+1:end) ]' );
      fclose(fileID);
      %
-     fprintf('The numerical results for meshsize h = 1/%d is saved in file Triangle_Stokes.txt in folder Save_Results.\n', 1/h(maxIt))
+     fprintf('The numerical results for meshsize h = 1/%d is saved in file Triangle_Stokes.txt in folder Saved_Results.\n', 1/h(maxIt))
      % 
      end
      end;
@@ -214,7 +221,10 @@ for k = 1:maxIt
      Mid_Edge   = info.Mid_Edge;
      Elem_center= info.Elem_center;
      NE         = info.NE;
-     fileID = fopen('.\Save_Results\Hexagon_Stokes.txt','wt');
+     if ~exist('Saved_Results','dir')
+         mkdir Saved_Results;    
+     end
+     fileID = fopen('.\Saved_Results\Hexagon_Stokes.txt','wt');
      fprintf(fileID,'%12s %12s %12s %12s  %12s %12s\n','Mid_Edge_x','Mid_Edge_y','Num u     ', 'Num_u - Exact_u','Num v     ', 'Num_v - Exact_v');
      fprintf(fileID,'%12.4f %12.4f %12.4f %12.4f %12.4f %12.4f\n',[Mid_Edge(:,1) Mid_Edge(:,2) u(1:2*NE) info.erroru u(2*NE+1:4*NE) info.errorv]' );
      fprintf(fileID,'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n');
@@ -222,7 +232,7 @@ for k = 1:maxIt
      fprintf(fileID,'%12.4f %12.4f %12.4f %12.4f \n',[Elem_center(:,1) Elem_center(:,2) u(4*NE+1:end) info.errorp]' );
      fclose(fileID);
      %
-     fprintf('The numerical results for meshsize h = 1/%d is saved in file Hexagon_Stokes.txt in folder Save_Results.\n', 1/h(maxIt))
+     fprintf('The numerical results for meshsize h = 1/%d is saved in file Hexagon_Stokes.txt in folder Saved_Results.\n', 1/h(maxIt))
      %
      rateL2 =zeros(maxIt,1);
      rateH1 =zeros(maxIt,1);
@@ -233,18 +243,21 @@ for k = 1:maxIt
      rateL2p(kk)    = (log (ERR_hexagon(kk,3))-log (ERR_hexagon(kk-1,3)))/ (log (h(kk))-log (h(kk-1))) ; 
      end
      A = [ERR_hexagon(:,1) rateL2 ERR_hexagon(:,2) rateH1 ERR_hexagon(:,3) rateL2p]';
-     fileID = fopen('.\Save_Results\Hexagon_Stokes_error.txt','wt');
+     fileID = fopen('.\Saved_Results\Hexagon_Stokes_error.txt','wt');
      fprintf(fileID,'%12s %6s %12s %6s %12s %6s \n','errL2   ','rateL2','errH1   ','rateH1','errL2 p ','rateL2 p');
      fprintf(fileID,'%12.2e %6.2f %12.2e %6.2f %12.2e %6.2f\n',A);
      fclose(fileID);
-     fprintf('The error and convergence rate are saved in file Hexagon_Stokes_error.txt in folder Save_Results.\n');
+     fprintf('The error and convergence rate are saved in file Hexagon_Stokes_error.txt in folder Saved_Results.\n');
      end
      elseif (option.exact==0)
      if (k==maxIt)
      Mid_Edge   = info.Mid_Edge;
      Elem_center= info.Elem_center;
      NE         = info.NE;
-     fileID = fopen('.\Save_Results\Hexagon_Stokes.txt','wt');
+     if ~exist('Saved_Results','dir')
+         mkdir Saved_Results;    
+     end
+     fileID = fopen('.\Saved_Results\Hexagon_Stokes.txt','wt');
      fprintf(fileID,'%12s %12s %12s %12s \n','Mid_Edge_x','Mid_Edge_y','Num u     ','Num v     ');
      fprintf(fileID,'%12.4f %12.4f %12.4f %12.4f \n',[Mid_Edge(:,1) Mid_Edge(:,2) u(1:2*NE) u(2*NE+1:4*NE)]' );
      fprintf(fileID,'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n');
@@ -252,14 +265,12 @@ for k = 1:maxIt
      fprintf(fileID,'%12.4f %12.4f %12.4f \n',[Elem_center(:,1) Elem_center(:,2) u(4*NE+1:end) ]' );
      fclose(fileID);
      %
-     fprintf('The numerical results for meshsize h = 1/%d is saved in file Hexagon_Stokes.txt in folder Save_Results.\n', 1/h(maxIt))
+     fprintf('The numerical results for meshsize h = 1/%d is saved in file Hexagon_Stokes.txt in folder Saved_Results.\n', 1/h(maxIt))
      % 
      end
      end;
     % quadrangle partition     
     case 'quadrangle'
-    %domain = [0,pi,0,pi];
-    %domain = [0,1,0,1];
     [nodeq,elemq] = squarequadmesh(domain,h(k));
     bdFlag = setboundary(nodeq,elemq,'Dirichlet');
     [u,AD,b,err_quad,info] = Stokes_SWG_quadrangle(nodeq,elemq,domain,pde,bdFlag,option);
@@ -288,7 +299,10 @@ for k = 1:maxIt
      Mid_Edge   = info.Mid_Edge;
      Elem_center= info.Elem_center;
      NE         = info.NE;
-     fileID = fopen('.\Save_Results\Quadrangle_Stokes.txt','wt');
+     if ~exist('Saved_Results','dir')
+         mkdir Saved_Results;    
+     end
+     fileID = fopen('.\Saved_Results\Quadrangle_Stokes.txt','wt');
      fprintf(fileID,'%12s %12s %12s %12s  %12s %12s\n','Mid_Edge_x','Mid_Edge_y','Num u     ', 'Num_u - Exact_u','Num v     ', 'Num_v - Exact_v');
      fprintf(fileID,'%12.4f %12.4f %12.4f %12.4f %12.4f %12.4f\n',[Mid_Edge(:,1) Mid_Edge(:,2) u(1:NE) info.erroru u(NE+1:2*NE) info.errorv]' );
      fprintf(fileID,'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n');
@@ -296,7 +310,7 @@ for k = 1:maxIt
      fprintf(fileID,'%12.4f %12.4f %12.4f %12.4f \n',[Elem_center(:,1) Elem_center(:,2) u(2*NE+1:end) info.errorp]' );
      fclose(fileID);
      %
-     fprintf('The numerical results for meshsize h = 1/%d is saved in file Quadrangle_Stokes.txt in folder Save_Results.\n', 1/h(maxIt))
+     fprintf('The numerical results for meshsize h = 1/%d is saved in file Quadrangle_Stokes.txt in folder Saved_Results.\n', 1/h(maxIt))
      %
      rateL2 =zeros(maxIt,1);
      rateH1 =zeros(maxIt,1);
@@ -307,18 +321,21 @@ for k = 1:maxIt
      rateL2p(kk)    = (log (ERR_quadrangle(kk,3))-log (ERR_quadrangle(kk-1,3)))/ (log (h(kk))-log (h(kk-1))) ; 
      end
      A = [ERR_quadrangle(:,1) rateL2 ERR_quadrangle(:,2) rateH1 ERR_quadrangle(:,3) rateL2p]';
-     fileID = fopen('.\Save_Results\Quadrangle_Stokes_error.txt','wt');
+     fileID = fopen('.\Saved_Results\Quadrangle_Stokes_error.txt','wt');
      fprintf(fileID,'%12s %6s %12s %6s %12s %6s \n','errL2   ','rateL2','errH1   ','rateH1','errL2 p ','rateL2 p');
      fprintf(fileID,'%12.2e %6.2f %12.2e %6.2f %12.2e %6.2f\n',A);
      fclose(fileID);
-     fprintf('The error and convergence rate are saved in file Quadrangle_Stokes_error.txt in folder Save_Results.\n');
+     fprintf('The error and convergence rate are saved in file Quadrangle_Stokes_error.txt in folder Saved_Results.\n');
      end
      elseif (option.exact==0)
      if (k==maxIt)
      Mid_Edge   = info.Mid_Edge;
      Elem_center= info.Elem_center;
      NE         = info.NE;
-     fileID = fopen('.\Save_Results\Quadrangle_Stokes.txt','wt');
+     if ~exist('Saved_Results','dir')
+         mkdir Saved_Results;    
+     end
+     fileID = fopen('.\Saved_Results\Quadrangle_Stokes.txt','wt');
      fprintf(fileID,'%12s %12s %12s %12s \n','Mid_Edge_x','Mid_Edge_y','Num u     ','Num v     ');
      fprintf(fileID,'%12.4f %12.4f %12.4f %12.4f \n',[Mid_Edge(:,1) Mid_Edge(:,2) u(1:NE) u(NE+1:2*NE)]' );
      fprintf(fileID,'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n');
@@ -326,7 +343,7 @@ for k = 1:maxIt
      fprintf(fileID,'%12.4f %12.4f %12.4f \n',[Elem_center(:,1) Elem_center(:,2) u(2*NE+1:end) ]' );
      fclose(fileID);
      %
-     fprintf('The numerical results for meshsize h = 1/%d is saved in file Quadrangle_Stokes.txt in folder Save_Results.\n', 1/h(maxIt))
+     fprintf('The numerical results for meshsize h = 1/%d is saved in file Quadrangle_Stokes.txt in folder Saved_Results.\n', 1/h(maxIt))
      % 
      end
      end;
@@ -356,7 +373,10 @@ for k = 1:maxIt
      Mid_Edge   = info.Mid_Edge;
      Elem_center= info.Elem_center;
      NE         = info.NE;
-     fileID = fopen('.\Save_Results\Octagon_Stokes.txt','wt');
+     if ~exist('Saved_Results','dir')
+         mkdir Saved_Results;    
+     end
+     fileID = fopen('.\Saved_Results\Octagon_Stokes.txt','wt');
      fprintf(fileID,'%12s %12s %12s %12s  %12s %12s\n','Mid_Edge_x','Mid_Edge_y','Num u     ', 'Num_u - Exact_u','Num v     ', 'Num_v - Exact_v');
      fprintf(fileID,'%12.4f %12.4f %12.4f %12.4f %12.4f %12.4f\n',[Mid_Edge(:,1) Mid_Edge(:,2) u(1:2*NE) info.erroru u(2*NE+1:4*NE) info.errorv]' );
      fprintf(fileID,'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n');
@@ -364,7 +384,7 @@ for k = 1:maxIt
      fprintf(fileID,'%12.4f %12.4f %12.4f %12.4f \n',[Elem_center(:,1) Elem_center(:,2) u(4*NE+1:end) info.errorp]' );
      fclose(fileID);
      %
-     fprintf('The numerical results for meshsize h = 1/%d is saved in file Octagon_Stokes.txt in folder Save_Results.\n', 1/h(maxIt))
+     fprintf('The numerical results for meshsize h = 1/%d is saved in file Octagon_Stokes.txt in folder Saved_Results.\n', 1/h(maxIt))
      %
      rateL2 =zeros(maxIt,1);
      rateH1 =zeros(maxIt,1);
@@ -375,18 +395,21 @@ for k = 1:maxIt
      rateL2p(kk)    = (log (ERR_octagon(kk,3))-log (ERR_octagon(kk-1,3)))/ (log (h(kk))-log (h(kk-1))) ; 
      end
      A = [ERR_octagon(:,1) rateL2 ERR_octagon(:,2) rateH1 ERR_octagon(:,3) rateL2p]';
-     fileID = fopen('.\Save_Results\Octagon_Stokes_error.txt','wt');
+     fileID = fopen('.\Saved_Results\Octagon_Stokes_error.txt','wt');
      fprintf(fileID,'%12s %6s %12s %6s %12s %6s \n','errL2   ','rateL2','errH1   ','rateH1','errL2 p ','rateL2 p');
      fprintf(fileID,'%12.2e %6.2f %12.2e %6.2f %12.2e %6.2f\n',A);
      fclose(fileID);
-     fprintf('The error and convergence rate are saved in file Octagon_Stokes_error.txt in folder Save_Results.\n');
+     fprintf('The error and convergence rate are saved in file Octagon_Stokes_error.txt in folder Saved_Results.\n');
      end  
      elseif (option.exact==0)
      if (k==maxIt)
      Mid_Edge   = info.Mid_Edge;
      Elem_center= info.Elem_center;
      NE         = info.NE;
-     fileID = fopen('.\Save_Results\Octagon_Stokes.txt','wt');
+     if ~exist('Saved_Results','dir')
+         mkdir Saved_Results;    
+     end
+     fileID = fopen('.\Saved_Results\Octagon_Stokes.txt','wt');
      fprintf(fileID,'%12s %12s %12s %12s \n','Mid_Edge_x','Mid_Edge_y','Num u     ','Num v     ');
      fprintf(fileID,'%12.4f %12.4f %12.4f %12.4f \n',[Mid_Edge(:,1) Mid_Edge(:,2) u(1:2*NE) u(2*NE+1:4*NE)]' );
      fprintf(fileID,'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n');
@@ -394,7 +417,7 @@ for k = 1:maxIt
      fprintf(fileID,'%12.4f %12.4f %12.4f \n',[Elem_center(:,1) Elem_center(:,2) u(4*NE+1:end) ]' );
      fclose(fileID);
      %
-     fprintf('The numerical results for meshsize h = 1/%d is saved in file Octagon_Stokes.txt in folder Save_Results.\n', 1/h(maxIt))
+     fprintf('The numerical results for meshsize h = 1/%d is saved in file Octagon_Stokes.txt in folder Saved_Results.\n', 1/h(maxIt))
      % 
      end
      end;
