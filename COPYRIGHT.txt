@@ -1,0 +1,40 @@
+WGSOL: is a collection of MATLAB functions for weak Galerkin finite
+element methods in two dimensions in a simplified formulation co-developed 
+by Yujie Liu and Junping Wang. The Copyright (C) statements are specified 
+in each code file.
+
+The program package is based on the subroutines/functions developped in iFem by 
+Dr. Long Chen: 
+
+iFEM: an integrated finite element methods package in MATLAB, 
+Technical Report, University of California at Irvine, 2008.
+
+We would like to thank Dr. Chen for his code distribution which has greatly simplified
+our work. All the subroutines/functions from iFEM are included in the subdirectory 
+named "ifem_LongChen".
+
+This software package is free of use; you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the
+Free Software Foundation; either version 3 of the License, or (at your
+option) any later version.
+
+This program is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR ANY PARTICULAR PURPOSE. See the GNU General
+Public License for more details.
+
+You should have received a copy of the GNU General Public License along
+with this program; if not, see <http://www.gnu.org/licenses/> or GPL.pdf in this directory.
+
+Please note that although the code is freely available, it is copyrighted by the authors/developer 
+and may not be sold or included in any commercial products without a license from the authors/developers.
+
+If you use this code in any program or publication, please acknowledge
+its authors by adding a reference to: 
+
+SWG: a simplified weak Galerkin methods package in MATLAB, 2018.
+Yujie Liu,  Sun Yat-sen University, China
+Junping Wang, USA
+
+September 16, 2018
+
