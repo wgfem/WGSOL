@@ -49,7 +49,7 @@ h=[1/2 1/4 1/8 1/16 1/32];
 %
 %  option.type  ='hexagon';
 %      Must select suboption for hexamesh. 
-        option.hexamesh ='regular';
+         option.hexamesh ='regular';
 %        option.hexamesh ='irregular_one';
 %        option.hexamesh ='irregular_two'; 
 %        option.hexamesh ='irregular_three';
@@ -114,11 +114,14 @@ for k = 1:maxIt
      %
      Mid_Edge   = info.Mid_Edge;
      Elem_center= info.Elem_center;
-     fileID = fopen('.\Save_Results\Triangle_Poisson.txt','wt');
+     if ~exist('Saved_Results','dir')
+         mkdir Saved_Results;    
+     end
+     fileID = fopen('.\Saved_Results\Triangle_Poisson.txt','wt');
      fprintf(fileID,'%12s %12s %12s %12s \n','Mid_Edge_x','Mid_Edge_y','Num u     ', 'Num_u - Exact_u');
      fprintf(fileID,'%12.4f %12.4f %12.4f %12.4f \n',[Mid_Edge(:,1) Mid_Edge(:,2) u info.error]');
      fclose(fileID);
-     fprintf('The numerical results for meshsize h = 1/%d is saved in file Triangle_Poisson.txt in folder Save_Results.\n', 1/h(maxIt));
+     fprintf('The numerical results for meshsize h = 1/%d is saved in file Triangle_Poisson.txt in folder Saved_Results.\n', 1/h(maxIt));
      %
      rateL2 =zeros(maxIt,1);
      rateH1 =zeros(maxIt,1);
@@ -127,21 +130,24 @@ for k = 1:maxIt
      rateH1(kk)     = (log (ERR_triangle(kk,2))-log (ERR_triangle(kk-1,2)))/ (log (h(kk))-log (h(kk-1))) ;  
      end
      A = [ERR_triangle(:,1) rateL2 ERR_triangle(:,2) rateH1]';
-     fileID = fopen('.\Save_Results\Triangle_Poisson_error.txt','wt');
+     fileID = fopen('.\Saved_Results\Triangle_Poisson_error.txt','wt');
      fprintf(fileID,'%12s %6s %12s %6s \n','errL2   ','rateL2','errH1   ','rateH1');
      fprintf(fileID,'%12.2e %6.2f %12.2e %6.2f\n',A);
      fclose(fileID);
-     fprintf('The error and convergence rate are saved in file Triangle_Poisson_error.txt in folder Save_Results.\n')
+     fprintf('The error and convergence rate are saved in file Triangle_Poisson_error.txt in folder Saved_Results.\n')
      end 
      elseif (option.exact==0)
      if (k==maxIt)
      Mid_Edge   = info.Mid_Edge;
      Elem_center= info.Elem_center;
-     fileID = fopen('.\Save_Results\Triangle_Poisson.txt','wt');
+     if ~exist('Saved_Results','dir')
+         mkdir Saved_Results;    
+     end
+     fileID = fopen('.\Saved_Results\Triangle_Poisson.txt','wt');
      fprintf(fileID,'%12s %12s %12s \n','Mid_Edge_x','Mid_Edge_y','Num u     ');
      fprintf(fileID,'%12.4f %12.4f %12.4f \n',[Mid_Edge(:,1) Mid_Edge(:,2) u ]');
      fclose(fileID);
-     fprintf('The numerical results for meshsize h = 1/%d is saved in file Triangle_Poisson.txt in folder Save_Results.\n', 1/h(maxIt));
+     fprintf('The numerical results for meshsize h = 1/%d is saved in file Triangle_Poisson.txt in folder Saved_Results.\n', 1/h(maxIt));
      end
      end
     %hexagon partition     
@@ -165,11 +171,14 @@ for k = 1:maxIt
      %
      Mid_Edge   = info.Mid_Edge;
      Elem_center= info.Elem_center;
-     fileID = fopen('.\Save_Results\Hexagon_Poisson.txt','wt');
+     if ~exist('Saved_Results','dir')
+         mkdir Saved_Results;    
+     end
+     fileID = fopen('.\Saved_Results\Hexagon_Poisson.txt','wt');
      fprintf(fileID,'%12s %12s %12s %12s \n','Mid_Edge_x','Mid_Edge_y','Num u     ', 'Num_u - Exact_u');
      fprintf(fileID,'%12.4f %12.4f %12.4f %12.4f \n',[Mid_Edge(:,1) Mid_Edge(:,2) u info.error]');
      fclose(fileID);
-     fprintf('The numerical results for meshsize h = 1/%d is saved in file Hexagon_Poisson.txt in folder Save_Results.\n', 1/h(maxIt))
+     fprintf('The numerical results for meshsize h = 1/%d is saved in file Hexagon_Poisson.txt in folder Saved_Results.\n', 1/h(maxIt))
      %
      rateL2 =zeros(maxIt,1);
      rateH1 =zeros(maxIt,1);
@@ -178,21 +187,27 @@ for k = 1:maxIt
      rateH1(kk)     = (log (ERR_hexagon(kk,2))-log (ERR_hexagon(kk-1,2)))/ (log (h(kk))-log (h(kk-1))) ;  
      end
      A = [ERR_hexagon(:,1) rateL2 ERR_hexagon(:,2) rateH1]';
-     fileID = fopen('.\Save_Results\Hexagon_Poisson_error.txt','wt');
+     if ~exist('Saved_Results','dir')
+         mkdir Saved_Results;    
+     end
+     fileID = fopen('.\Saved_Results\Hexagon_Poisson_error.txt','wt');
      fprintf(fileID,'%12s %6s %12s %6s \n','errL2   ','rateL2','errH1   ','rateH1');
      fprintf(fileID,'%12.2e %6.2f %12.2e %6.2f\n',A);
      fclose(fileID);
-     fprintf('The error and convergence rate are saved in file Hexagon_Poisson_error.txt in folder Save_Results.\n');
+     fprintf('The error and convergence rate are saved in file Hexagon_Poisson_error.txt in folder Saved_Results.\n');
      end
      elseif (option.exact==0)
      if (k==maxIt)
      Mid_Edge   = info.Mid_Edge;
      Elem_center= info.Elem_center;
-     fileID = fopen('.\Save_Results\Hexagon_Poisson.txt','wt');
+     if ~exist('Saved_Results','dir')
+         mkdir Saved_Results;    
+     end
+     fileID = fopen('.\Saved_Results\Hexagon_Poisson.txt','wt');
      fprintf(fileID,'%12s %12s %12s %12s \n','Mid_Edge_x','Mid_Edge_y','Num u     ');
      fprintf(fileID,'%12.4f %12.4f %12.4f %12.4f \n',[Mid_Edge(:,1) Mid_Edge(:,2) u]');
      fclose(fileID);
-     fprintf('The numerical results for meshsize h = 1/%d is saved in file Hexagon_Poisson.txt in folder Save_Results.\n', 1/h(maxIt));
+     fprintf('The numerical results for meshsize h = 1/%d is saved in file Hexagon_Poisson.txt in folder Saved_Results.\n', 1/h(maxIt));
      end
      end
     % quadrangle partition
@@ -219,11 +234,14 @@ for k = 1:maxIt
          end
      Mid_Edge   = info.Mid_Edge;
      Elem_center= info.Elem_center;
-     fileID = fopen('.\Save_Results\Quadrangle_Poisson.txt','wt');
+     if ~exist('Saved_Results','dir')
+         mkdir Saved_Results;    
+     end
+     fileID = fopen('.\Saved_Results\Quadrangle_Poisson.txt','wt');
      fprintf(fileID,'%12s %12s %12s %12s \n','Mid_Edge_x','Mid_Edge_y','Num u     ', 'Num_u - Exact_u');
      fprintf(fileID,'%12.4f %12.4f %12.4f %12.4f \n',[Mid_Edge(:,1) Mid_Edge(:,2) u info.error]');
      fclose(fileID);
-     fprintf('The numerical results for meshsize h = 1/%d is saved in file Quadrangle_Poisson.txt in folder Save_Results.\n', 1/h(maxIt))
+     fprintf('The numerical results for meshsize h = 1/%d is saved in file Quadrangle_Poisson.txt in folder Saved_Results.\n', 1/h(maxIt))
      %
      rateL2 =zeros(maxIt,1);
      rateH1 =zeros(maxIt,1);
@@ -232,21 +250,27 @@ for k = 1:maxIt
      rateH1(kk)     = (log (ERR_quadrangle(kk,2))-log (ERR_quadrangle(kk-1,2)))/ (log (h(kk))-log (h(kk-1))) ;  
      end
      A = [ERR_quadrangle(:,1) rateL2 ERR_quadrangle(:,2) rateH1]';
-     fileID = fopen('.\Save_Results\Quadrangle_Poisson_error.txt','wt');
+     if ~exist('Saved_Results','dir')
+         mkdir Saved_Results;    
+     end
+     fileID = fopen('.\Saved_Results\Quadrangle_Poisson_error.txt','wt');
      fprintf(fileID,'%12s %6s %12s %6s \n','errL2   ','rateL2','errH1   ','rateH1');
      fprintf(fileID,'%12.2e %6.2f %12.2e %6.2f\n',A);
      fclose(fileID);
-     fprintf('The error and convergence rate are saved in file Quadrangle_Poisson_error.txt in folder Save_Results.\n');
+     fprintf('The error and convergence rate are saved in file Quadrangle_Poisson_error.txt in folder Saved_Results.\n');
      end
      elseif (option.exact==0)
      if (k==maxIt)
      Mid_Edge   = info.Mid_Edge;
      Elem_center= info.Elem_center;
-     fileID = fopen('.\Save_Results\Quadrangle_Poisson.txt','wt');
+     if ~exist('Saved_Results','dir')
+         mkdir Saved_Results;    
+     end
+     fileID = fopen('.\Saved_Results\Quadrangle_Poisson.txt','wt');
      fprintf(fileID,'%12s %12s %12s \n','Mid_Edge_x','Mid_Edge_y','Num u     ');
      fprintf(fileID,'%12.4f %12.4f %12.4f \n',[Mid_Edge(:,1) Mid_Edge(:,2) u ]');
      fclose(fileID);
-     fprintf('The numerical results for meshsize h = 1/%d is saved in file Quadrangle_Poisson.txt in folder Save_Results.\n', 1/h(maxIt));
+     fprintf('The numerical results for meshsize h = 1/%d is saved in file Quadrangle_Poisson.txt in folder Saved_Results.\n', 1/h(maxIt));
      end
      end
     % octagon partition 
@@ -268,11 +292,14 @@ for k = 1:maxIt
          end
      Mid_Edge   = info.Mid_Edge;
      Elem_center= info.Elem_center;
-     fileID = fopen('.\Save_Results\Octagon_Poisson.txt','wt');
+     if ~exist('Saved_Results','dir')
+         mkdir Saved_Results;    
+     end
+     fileID = fopen('.\Saved_Results\Octagon_Poisson.txt','wt');
      fprintf(fileID,'%12s %12s %12s %12s \n','Mid_Edge_x','Mid_Edge_y','Num u     ', 'Num_u - Exact_u');
      fprintf(fileID,'%12.4f %12.4f %12.4f %12.4f \n',[Mid_Edge(:,1) Mid_Edge(:,2) u info.error]');
      fclose(fileID);
-     fprintf('The numerical results for meshsize h = 1/%d is saved in file Octagon_Poisson.txt in folder Save_Results.\n', 1/h(maxIt));
+     fprintf('The numerical results for meshsize h = 1/%d is saved in file Octagon_Poisson.txt in folder Saved_Results.\n', 1/h(maxIt));
      %
      rateL2 =zeros(maxIt,1);
      rateH1 =zeros(maxIt,1);
@@ -281,21 +308,27 @@ for k = 1:maxIt
      rateH1(kk)     = (log (ERR_octagon(kk,2))-log (ERR_octagon(kk-1,2)))/ (log (h(kk))-log (h(kk-1))) ;  
      end
      A = [ERR_octagon(:,1) rateL2 ERR_octagon(:,2) rateH1]';
-     fileID = fopen('.\Save_Results\Octagon_Poisson_error.txt','wt');
+     if ~exist('Saved_Results','dir')
+         mkdir Saved_Results;    
+     end
+     fileID = fopen('.\Saved_Results\Octagon_Poisson_error.txt','wt');
      fprintf(fileID,'%12s %6s %12s %6s \n','errL2   ','rateL2','errH1   ','rateH1');
      fprintf(fileID,'%12.2e %6.2f %12.2e %6.2f\n',A);
      fclose(fileID);
-     fprintf('The error and convergence rate are saved in file Octagon_Poisson_error.txt in folder Save_Results.\n');
+     fprintf('The error and convergence rate are saved in file Octagon_Poisson_error.txt in folder Saved_Results.\n');
      end
      elseif (option.exact==0)
      if (k==maxIt)
      Mid_Edge   = info.Mid_Edge;
      Elem_center= info.Elem_center;
-     fileID = fopen('.\Save_Results\Octagon_Poisson.txt','wt');
+     if ~exist('Saved_Results','dir')
+         mkdir Saved_Results;    
+     end
+     fileID = fopen('.\Saved_Results\Octagon_Poisson.txt','wt');
      fprintf(fileID,'%12s %12s %12s \n','Mid_Edge_x','Mid_Edge_y','Num u     ');
      fprintf(fileID,'%12.4f %12.4f %12.4f \n',[Mid_Edge(:,1) Mid_Edge(:,2) u ]');
      fclose(fileID);
-     fprintf('The numerical results for meshsize h = 1/%d is saved in file Octagon_Poisson.txt in folder Save_Results.\n', 1/h(maxIt));
+     fprintf('The numerical results for meshsize h = 1/%d is saved in file Octagon_Poisson.txt in folder Saved_Results.\n', 1/h(maxIt));
      end
      end
     end
