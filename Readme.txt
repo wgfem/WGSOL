@@ -1,11 +1,11 @@
 # WGSOL
 WG MatLab functions for PDE solving
 
-WGSOL a collection of MATLAB functions which implement the weak Galerkin (WG) finite element method in a simplified formulation (known as SWG – Simplified Weak Galerkin) for numerical solving of PDEs in two dimensions. The current version contains SWG solvers for the Poisson equation, the convection-diffusion-reaction equation, and the Stokes equation.
+WGSOL a collection of MATLAB functions which implement the weak Galerkin (WG) finite element method in a simplified formulation (known as SWG â€“ Simplified Weak Galerkin) for numerical solving of PDEs in two dimensions. The current version contains SWG solvers for the Poisson equation, the convection-diffusion-reaction equation, and the Stokes equation.
 
 Steps to follow for trying out the code:
 
-1. Copy all the files into your favorite folder, say ./WGSOL
+1. Download the latest release version, unzip the file, and save the source code into your favorite folder, say ./WGSOL
 
 2. Set path configuration: go to the underlying directory (e.g., ./WGSOL) 
    and run the file PathConfigure.m in MatLab.
