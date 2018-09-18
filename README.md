@@ -7,7 +7,7 @@ Steps to follow for trying out the code:
 
 To use the sofware functions:
 
-1. Copy all the files into your favorite folder, say ./WGSOL
+1. Download the released version, unzip the file, and save the source code into your favorite folder, say ./WGSOL
 
 2. Set path configuration: go to the underlying directory (e.g., ./WGSOL) 
    and run the file PathConfigure.m.
